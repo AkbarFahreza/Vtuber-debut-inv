@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DRZ | Debut Inv editor</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.js"
+      integrity="sha512-3FKAKNDHbfUwAgW45wNAvfgJDDdNoTi5PZWU7ak3Xm0X8u0LbDBWZEyPklRebTZ8r+p0M2KIJWDYZQjDPyYQEA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <container>
+      <options-panel>
+        <div id="options">
+          <input-editor>
+            <div class="input-section">
+              <label for="names-input" id="input-title">Input Names</label>
+              <input
+                type="text"
+                id="names-input"
+                placeholder="add comma (,) to separates names"
+              />
+            </div>
+          </input-editor>
+          <div class="flex-col">
+            <div class="flex-col" style="margin-top: 25px">
+              <p class="title">Image Size Setting</p>
+              <p class="sub-title" style="font-size: 13px !important">
+                Fill input below according your original image size,
+                <span style="color: #ff7070; font-weight: bold">
+                  don't let it empty!!!!</span
+                >
+              </p>
+            </div>
+            <div class="flex-row" style="margin-top: 10px; flex-wrap: wrap">
+              <div class="flex-col">
+                <label for="width" class="sub-title">Image Width</label>
+                <input
+                  type="number"
+                  id="width"
+                  value=""
+                  placeholder="e.g. 1080"
+                />
+              </div>
+              <div class="flex-col">
+                <label for="height" class="sub-title">Image height</label>
+                <input
+                  type="number"
+                  id="height"
+                  value=""
+                  placeholder="e.g. 1080"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="name-setting">
+            <div class="flex-col" style="margin-top: 25px">
+              <p class="title">Text Name Setting</p>
+              <p class="sub-title" style="font-size: 13px !important">
+                Set your names position and style
+              </p>
+            </div>
+            <div class="flex-row" style="margin-top: 10px; flex-wrap: wrap">
+              <div class="flex-col">
+                <label for="width" class="sub-title">Top</label>
+                <input
+                  type="number"
+                  id="top"
+                  value=""
+                  placeholder="Text top pos"
+                />
+              </div>
+              <div class="flex-col">
+                <label for="height" class="sub-title">left</label>
+                <input
+                  type="number"
+                  id="left"
+                  value=""
+                  placeholder="Text left pos"
+                />
+              </div>
+              <div class="flex-col">
+                <label for="font-size" class="sub-title">Font Size</label>
+                <input
+                  type="number"
+                  id="font-size"
+                  value="20px"
+                  placeholder="Font size"
+                />
+              </div>
+              <div class="flex-col">
+                <label for="height" class="sub-title">Text Color</label>
+                <input type="text" id="text-color-picker" data-coloris />
+              </div>
+              <div class="flex-col">
+                <label for="font-family" class="sub-title">Font Family</label>
+                <input
+                  type="file"
+                  id="font-family"
+                  accept=".ttf,  .otf,  .woff, .woff2 "
+                />
+              </div>
+              <!-- <div class="flex-col">
+                <label for="rotate" class="sub-title">Text Rotation</label>
+                <input type="number" id="rotate" placeholder="Text rotation" />
+              </div> -->
+            </div>
+          </div>
+          <div
+            style="
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              gap: 10px;
+              margin-top: 20px;
+            "
+          >
+            <button
+              style="margin-top: 10px; background: #ff7070"
+              onclick="hardReload()"
+            >
+              Clear All Value
+            </button>
+            <button onclick="renderNames()" id="render-button" disabled>
+              Render Result
+            </button>
+          </div>
+        </div>
+        <render>
+          <div
+            class="flex-row"
+            style="justify-content: space-between; align-items: center"
+          >
+            <p class="title" style="margin: 20px 0px">Result</p>
+            <button
+              onclick="downloadAllImages()"
+              id="download-all-button"
+              style="height: fit-content"
+            >
+              Download All
+            </button>
+          </div>
+          <div id="Rendered-name"></div>
+        </render>
+      </options-panel>
+      <preview-panel>
+        <p class="title">Preview</p>
+        <div class="flex-row" style="align-items: center">
+          <p class="sub-title">Select Image</p>
+          <input type="file" id="upload-invitation" accept="image/*" />
+        </div>
+        <div id="image-preview">
+          <img src="src/img/Debut-Inv.png" id="inv-image" />
+          <p
+            id="name"
+            style="
+              top: 0px;
+              left: 0px;
+              white-space: nowrap;
+              color: #ffffff;
+              font-size: 70px;
+            "
+          >
+            Name here
+          </p>
+        </div>
+      </preview-panel>
+      <div
+        class="flex-col"
+        style="position: fixed; bottom: 20px; right: 20px; gap: 5px"
+        id="socmed"
+      >
+        <a
+          class="flex-row"
+          style="align-items: center !important"
+          href="https://ko-fi.com/arzee"
+        >
+          <img src="src/img/ko-fi.svg" />
+          <p class="title">Ko-fi</p>
+        </a>
+        <a
+          class="flex-row"
+          style="align-items: center !important"
+          href="https://trakteer.id/Revii"
+          s
+        >
+          <img
+            src="src/img/trakteer.svg"
+            style="align-items: center !important"
+          />
+          <p class="title">Trakteer</p>
+        </a>
+        <a class="flex-row" href="https://x.com/Revernry">
+          <img
+            src="src/img/twitter.svg"
+            style="align-items: center !important"
+          />
+          <p class="title">Twitter</p>
+        </a>
+      </div>
+    </container>
+
+    <script src="src/script.js"></script>
+  </body>
+</html>
