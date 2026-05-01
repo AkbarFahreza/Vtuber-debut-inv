@@ -1,4 +1,194 @@
-// Buat munculin tombol download all kalo rendered name ga kosong
+const MOVE_STEP = 5;
+const FAST_STEP = 20;
+const FINE_STEP = 1;
+let rotation = 0;
+const previewText = document.getElementById("name");
+const handle = previewText.querySelector(".handle");
+const rotateHandle = previewText.querySelector(".rotate");
+
+// Handle text control
+
+let pos = { x: 100, y: 100 };
+let scale = 1;
+
+let isDragging = false;
+let isResizing = false;
+
+let startMouse = { x: 0, y: 0 };
+let startPos = { x: 0, y: 0 };
+let startScale = 1;
+
+// Rotate variable
+
+let isRotating = false;
+let center = { x: 0, y: 0 };
+let startAngle = 0;
+let startRotation = 0;
+
+// max width
+let isResizingLeft = false;
+let startWidth = 0;
+let startX = 0;
+
+function update() {
+  previewText.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale}) rotate(${rotation}deg)`;
+}
+
+// Select
+previewText.setAttribute("draggable", false);
+
+previewText.addEventListener("dragstart", (e) => {
+  e.preventDefault();
+});
+
+previewText.addEventListener("mousedown", (e) => {
+  if (e.target === handle) return;
+  previewText.classList.add("selected");
+
+  isDragging = true;
+  startMouse.x = e.clientX;
+  startMouse.y = e.clientY;
+  startPos = { ...pos };
+});
+
+// Resize
+handle.addEventListener("mousedown", (e) => {
+  e.stopPropagation();
+  previewText.classList.add("selected");
+
+  isResizing = true;
+  startMouse.x = e.clientX;
+  startMouse.y = e.clientY;
+  startScale = scale;
+});
+
+document.addEventListener("mousemove", (e) => {
+  // Drag
+  if (isDragging) {
+    pos.x = startPos.x + (e.clientX - startMouse.x);
+    pos.y = startPos.y + (e.clientY - startMouse.y);
+    update();
+  }
+
+  // Resize
+  if (isResizing) {
+    const dx = e.clientX - startMouse.x;
+    const dy = e.clientY - startMouse.y;
+    const delta = (dx + dy) * 0.005;
+
+    scale = Math.max(0.2, startScale + delta);
+    update();
+  }
+
+  // Rotate
+  if (isRotating) {
+    const angle = Math.atan2(e.clientY - center.y, e.clientX - center.x);
+    const delta = angle - startAngle;
+
+    rotation = startRotation + (delta * 180) / Math.PI;
+    update();
+  }
+
+  // width
+  if (isResizingLeft) {
+    const dx = e.clientX - startMouse.x;
+
+    let newWidth = startWidth - dx;
+    newWidth = Math.max(50, newWidth); // min width
+
+    previewText.style.width = newWidth + "px";
+
+    // shift position so right side stays fixed
+    pos.x = startX + dx;
+
+    update();
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  isResizing = false;
+  isResizingLeft = false;
+});
+
+// Click outside to deselect
+document.addEventListener("mousedown", (e) => {
+  if (!previewText.contains(e.target)) {
+    previewText.classList.remove("selected");
+  }
+});
+
+// rotate
+rotateHandle.addEventListener("mousedown", (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+
+  isRotating = true;
+  previewText.classList.add("selected");
+
+  const rect = previewText.getBoundingClientRect();
+  center.x = rect.left + rect.width / 2;
+  center.y = rect.top + rect.height / 2;
+
+  startAngle = Math.atan2(e.clientY - center.y, e.clientX - center.x);
+  startRotation = rotation;
+});
+
+document.addEventListener("mouseup", () => {
+  isRotating = false;
+});
+
+update();
+
+// set max width
+const leftHandle = previewText.querySelector(".left");
+
+leftHandle.addEventListener("mousedown", (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+
+  isResizingLeft = true;
+  previewText.classList.add("selected");
+
+  startMouse.x = e.clientX;
+  startWidth = previewText.offsetWidth;
+  startX = pos.x;
+});
+
+document.addEventListener("keydown", (e) => {
+  // only move when selected
+  if (!previewText.classList.contains("selected")) return;
+
+  let step = MOVE_STEP;
+  if (e.shiftKey) step = FAST_STEP;
+  if (e.altKey) step = FINE_STEP;
+
+  let moved = true;
+
+  switch (e.key) {
+    case "ArrowUp":
+      pos.y -= step;
+      break;
+    case "ArrowDown":
+      pos.y += step;
+      break;
+    case "ArrowLeft":
+      pos.x -= step;
+      break;
+    case "ArrowRight":
+      pos.x += step;
+      break;
+    default:
+      moved = false;
+  }
+
+  if (moved) {
+    e.preventDefault(); // prevent page scroll
+    update();
+  }
+});
+// End Handle text control
+
 function toggleDownloadButton() {
   const renderedName = document.getElementById("Rendered-name");
   const downloadButton = document.getElementById("download-all-button");
@@ -16,7 +206,6 @@ function renderNames() {
   const container = document.getElementById("Rendered-name");
   container.innerHTML = "";
 
-  const previewText = document.getElementById("name");
   names.forEach((name, index) => {
     const nameItem = document.createElement("div");
     nameItem.className = "name-item";
@@ -29,7 +218,7 @@ function renderNames() {
     downloadButton.id = "download-button";
     downloadButton.textContent = `Download`;
     downloadButton.onclick = () => {
-      previewText.textContent = name;
+      previewText.childNodes[0].nodeValue = name;
       downloadAsImage(name, index);
     };
     nameItem.appendChild(downloadButton);
@@ -66,36 +255,16 @@ function downloadAsImage(name, index) {
   });
 }
 
-// Buat ubah nilai top & left posisi nama
-// document.getElementById("top").onchange = function () {
-//   const topVal = document.getElementById("top").value;
-//   document.getElementById("name").style.top = topVal + "px";
-// };
-// document.getElementById("left").onchange = function () {
-//   const leftVal = document.getElementById("left").value;
-//   document.getElementById("name").style.left = leftVal + "px";
-// };
-// buat ubah warna text nama
 document.addEventListener("DOMContentLoaded", function () {
+  const LHeight = document.getElementById("line-height");
   const textColor = document.getElementById("text-color-picker");
   const name = document.getElementById("name");
-  const fontSize = document.getElementById("font-size");
-  const leftVal = document.getElementById("left");
-  const topVal = document.getElementById("top");
 
   textColor.addEventListener("input", function () {
     name.style.color = textColor.value;
   });
-
-  fontSize.addEventListener("input", function () {
-    name.style.fontSize = fontSize.value + "px";
-  });
-
-  topVal.addEventListener("input", function () {
-    name.style.top = topVal.value + "px";
-  });
-  leftVal.addEventListener("input", function () {
-    name.style.left = leftVal.value + "px";
+  LHeight.addEventListener("input", function () {
+    name.style.lineHeight = LHeight.value + "px";
   });
 });
 window.addEventListener("DOMContentLoaded", function () {
@@ -118,24 +287,18 @@ function hardReload() {
   const inputName = document.getElementById("names-input");
   const width = document.getElementById("width");
   const height = document.getElementById("height");
-  const topVal = document.getElementById("top");
-  const leftVal = document.getElementById("left");
   const renderBtn = document.getElementById("render-button");
   const style = document.getElementById("font-family");
   const nameColor = document.getElementById("text-color-picker");
-  const fontSize = document.getElementById("font-size");
-  // const nameRotate = document.getElementById("rotate");
+  const lineHeight = document.getElementById("line-height");
 
-  topVal.value = 0;
-  leftVal.value = 0;
-  fontSize.value = 69;
   inputName.value = "";
   width.value = "";
   height.value = "";
   renderBtn.disabled = true;
   style.value = "";
   nameColor.value = "#ffffff";
-  // nameRotate.value = 0;
+  lineHeight.value = 67;
 }
 // Buat upload gambar undangannya
 document
@@ -221,7 +384,7 @@ function downloadAllImages() {
             });
           })
           .catch((error) => reject(error));
-      })
+      }),
     );
   });
 

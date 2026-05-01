@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -20,6 +20,12 @@
   </head>
   <body>
     <container>
+      <div style="text-align: center;">
+        <h2>Vtuber Debut Inv (v.1.2)</h3>
+        <p style="font-size: 13px">
+          Render your debut invitation names with no time (by DekReza)
+        </p>
+      </div>
       <options-panel>
         <div id="options">
           <input-editor>
@@ -42,8 +48,11 @@
                 >
               </p>
             </div>
-            <div class="flex-row" style="margin-top: 10px; flex-wrap: wrap">
-              <div class="flex-col">
+            <div
+              class="flex-row"
+              style="margin-top: 10px; flex-wrap: wrap; width: 100%"
+            >
+              <div class="flex-col" style="max-width: 200px">
                 <label for="width" class="sub-title">Image Width</label>
                 <input
                   type="number"
@@ -52,7 +61,7 @@
                   placeholder="e.g. 1080"
                 />
               </div>
-              <div class="flex-col">
+              <div class="flex-col" style="max-width: 200px">
                 <label for="height" class="sub-title">Image height</label>
                 <input
                   type="number"
@@ -67,53 +76,26 @@
             <div class="flex-col" style="margin-top: 25px">
               <p class="title">Text Name Setting</p>
               <p class="sub-title" style="font-size: 13px !important">
-                Set your names position and style
+                Set your names text style
               </p>
             </div>
             <div class="flex-row" style="margin-top: 10px; flex-wrap: wrap">
               <div class="flex-col">
-                <label for="width" class="sub-title">Top</label>
-                <input
-                  type="number"
-                  id="top"
-                  value=""
-                  placeholder="Text top pos"
-                />
-              </div>
-              <div class="flex-col">
-                <label for="height" class="sub-title">left</label>
-                <input
-                  type="number"
-                  id="left"
-                  value=""
-                  placeholder="Text left pos"
-                />
-              </div>
-              <div class="flex-col">
-                <label for="font-size" class="sub-title">Font Size</label>
-                <input
-                  type="number"
-                  id="font-size"
-                  value="20px"
-                  placeholder="Font size"
-                />
-              </div>
-              <div class="flex-col">
-                <label for="height" class="sub-title">Text Color</label>
+                <label for="text-color-picker" class="sub-title">Text Color</label>
                 <input type="text" id="text-color-picker" data-coloris />
               </div>
               <div class="flex-col">
-                <label for="font-family" class="sub-title">Font Family</label>
+                <label for="line-height" class="sub-title">Line height</label>
+                <input type="number" id="line-height"  />
+              </div>
+              <div class="flex-col">
+                <label for="font-family" class="sub-title">Input Font</label>
                 <input
                   type="file"
                   id="font-family"
                   accept=".ttf,  .otf,  .woff, .woff2 "
                 />
               </div>
-              <!-- <div class="flex-col">
-                <label for="rotate" class="sub-title">Text Rotation</label>
-                <input type="number" id="rotate" placeholder="Text rotation" />
-              </div> -->
             </div>
           </div>
           <div
@@ -160,18 +142,21 @@
           <input type="file" id="upload-invitation" accept="image/*" />
         </div>
         <div id="image-preview">
-          <img src="src/img/Debut-Inv.png" id="inv-image" />
+          <img src="src/img/Debut-Inv.png" id="inv-image" draggable="false"/>
           <p
             id="name"
             style="
               top: 0px;
               left: 0px;
               white-space: nowrap;
-              color: #ffffff;
+              color: #ede7f0;
               font-size: 70px;
             "
           >
-            Name here
+            Nameee Heree
+            <span class="handle"></span>
+            <span class="handle rotate"></span>
+            <span class="handle left"></span>
           </p>
         </div>
       </preview-panel>
@@ -191,7 +176,7 @@
         <a
           class="flex-row"
           style="align-items: center !important"
-          href="https://trakteer.id/Revii"
+          href="https://trakteer.id/DekReza/"
           s
         >
           <img

@@ -2,16 +2,100 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"); */
 :root {
   /* theme */
+  --background-color: #120029;
+  --frontground-color: #ede7f0;
   --main-color: #b53df9;
   --sec-color: #f5019f;
   --sec-hover-color: #ff7bd1;
   --hover-color: #e7bcff;
   --fontFams: "Poppins", sans-serif;
-  /* --font-name: "Bebas Neue", cursive; */
-  --name-color: #fff;
+  --name-color: #ede7f0;
   --top: 30px;
   --left: 70px;
+
+  --scale-svg: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1vdmUtZGlhZ29uYWwyLWljb24gbHVjaWRlLW1vdmUtZGlhZ29uYWwtMiI+PHBhdGggZD0iTTE5IDEzdjZoLTYiLz48cGF0aCBkPSJNNSAxMVY1aDYiLz48cGF0aCBkPSJtNSA1IDE0IDE0Ii8+PC9zdmc+);
+  --rotate-svg: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXJvdGF0ZS1jY3ctaWNvbiBsdWNpZGUtcm90YXRlLWNjdyI+PHBhdGggZD0iTTMgMTJhOSA5IDAgMSAwIDktOSA5Ljc1IDkuNzUgMCAwIDAtNi43NCAyLjc0TDMgOCIvPjxwYXRoIGQ9Ik0zIDN2NWg1Ii8+PC9zdmc+);
+  --drag-svg: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1vdmUtaG9yaXpvbnRhbC1pY29uIGx1Y2lkZS1tb3ZlLWhvcml6b250YWwiPjxwYXRoIGQ9Im0xOCA4IDQgNC00IDQiLz48cGF0aCBkPSJNMiAxMmgyMCIvPjxwYXRoIGQ9Im02IDgtNCA0IDQgNCIvPjwvc3ZnPg==);
 }
+body {
+  background: var(--background-color);
+  color: var(--frontground-color);
+}
+
+#name {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  white-space: nowrap;
+  color: #ede7f0;
+  font-size: 70px;
+  cursor: grab;
+  user-select: none;
+  transform-origin: top left;
+}
+
+/* selection border */
+#name.selected {
+  outline: 3px dashed #4da3ff;
+}
+#name {
+  padding: 5px 15px !important;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center;
+  white-space: wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* resize handle */
+.handle {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--scale-svg), var(--frontground-color);
+  transform: scale(1.3);
+  right: -6px;
+  bottom: -6px;
+  cursor: nwse-resize;
+  display: none;
+  z-index: 100;
+}
+/* rotate handle (top-right) */
+.handle.rotate {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: var(--rotate-svg), var(--frontground-color);
+  transform: scale(1.3);
+  right: -6px;
+  top: -6px;
+  cursor: grab;
+  display: none;
+}
+/* left resize handle */
+.handle.left {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%) scale(1.3);
+  cursor: ew-resize;
+  display: none;
+  background: var(--drag-svg), var(--frontground-color);
+}
+
+#name.selected .handle.left {
+  display: block;
+}
+#name.selected .handle.rotate {
+  display: block;
+}
+#name.selected .handle {
+  display: block;
+}
+
 .title {
   /* font-size: 18px !important; */
   font-weight: 600;
@@ -49,10 +133,9 @@ options-panel {
 preview-panel,
 options-panel {
   width: 85vw;
-
   padding: 20px;
   max-height: 100vh;
-  background: #fff;
+  background: var(--background-color);
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   height: auto;
@@ -112,7 +195,7 @@ input-editor,
   margin-top: 10px;
   padding: 10px 20px;
   background: var(--main-color);
-  color: #fff;
+  color: #ede7f0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -130,14 +213,16 @@ input-editor,
   background: #f4f4f4;
   border-radius: 5px;
   align-items: center;
+  color: var(--background-color);
+  font-weight: 700 !important;
 }
 .name-item:nth-child(even) {
-  background: #fff;
+  background: #d9c5e3;
   border: 2px solid #ececec;
 }
 button {
   background: var(--main-color);
-  color: #fff;
+  color: #ede7f0;
   border: none;
   padding: 10px 10px;
   border-radius: 5px;
@@ -174,7 +259,7 @@ input {
   padding: 10px;
   border: 1px solid #9b9b9b;
 }
-/* styles.css */
+
 .hidden {
   display: none;
 }
@@ -183,7 +268,7 @@ input {
 }
 #socmed a {
   background: var(--sec-color);
-  color: #fff;
+  color: #ede7f0;
   border: none;
   padding: 10px 10px;
   border-radius: 5px;
