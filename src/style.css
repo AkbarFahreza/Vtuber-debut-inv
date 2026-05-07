@@ -35,7 +35,9 @@ body {
   user-select: none;
   transform-origin: top left;
 }
-
+#text-color-picker {
+  cursor: pointer;
+}
 /* selection border */
 #name.selected {
   outline: 3px dashed #4da3ff;
