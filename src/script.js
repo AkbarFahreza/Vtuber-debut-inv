@@ -248,22 +248,17 @@ function renderNames() {
 
   names.forEach((name, index) => {
     const nameItem = document.createElement("div");
-
     nameItem.className = "name-item";
 
     // TOP ROW
     const topRow = document.createElement("div");
-
     topRow.className = "name-top-row";
 
     // Name
     const nameText = document.createElement("span");
-
     nameText.textContent = name;
-
     // Download button
     const downloadButton = document.createElement("button");
-
     downloadButton.id = "download-button";
 
     downloadButton.onclick = (e) => {

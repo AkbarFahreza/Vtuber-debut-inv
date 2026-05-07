@@ -282,7 +282,6 @@ button:hover {
   background: var(--download-svg);
   color: var(--frontground-color);
 }
-text-area,
 input {
   min-width: auto;
   padding: 10px 10px;
@@ -326,13 +325,15 @@ input {
 }
 
 #message-template {
-  /* min-height: 100px; */
+  min-height: 50px;
   border: none;
   outline: none;
   padding: 12px;
+  font-size: 12px;
   margin-bottom: 15px;
   font-weight: 600;
   box-sizing: border-box;
+  resize: vertical;
 }
 
 .generated-message {
