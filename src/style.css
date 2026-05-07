@@ -129,11 +129,9 @@ container {
   position: relative;
 }
 options-panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   overflow-y: scroll;
 }
+
 preview-panel,
 options-panel {
   width: 85vw;
@@ -142,7 +140,6 @@ options-panel {
   background: var(--background-color);
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  height: auto;
   max-width: 100vw;
 }
 preview-panel {
@@ -152,6 +149,7 @@ preview-panel {
   align-items: start;
   justify-content: start;
 }
+
 render,
 #options {
   width: 40vw;
@@ -162,15 +160,32 @@ render,
   gap: 20px;
   margin-top: 20px;
 }
-
 options-panel {
-  display: flex !important;
-  flex-direction: row !important;
+  display: flex;
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
 }
 
+@media (max-width: 768px) {
+  options-panel {
+    gap: 10px;
+  }
+  render,
+  #options {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 480px) {
+  options-panel {
+    gap: 10px;
+  }
+  render,
+  #options {
+    width: 100vw;
+  }
+}
 input-editor,
 #Rendered-name {
   /* width: 50vw; */
@@ -195,7 +210,7 @@ input-editor,
   color: #000;
 }
 #render-button {
-  width: 100%;
+  width: 50%;
   margin-top: 10px;
   padding: 10px 20px;
   background: var(--main-color);
