@@ -238,22 +238,85 @@ function toggleDownloadButton() {
 // Buat render nama
 function renderNames() {
   const input = document.getElementById("names-input").value;
-  const names = input.split(",").map((name) => name.trim());
+  const template = document.getElementById("message-template").value;
+  const names = input
+    .split(",")
+    .map((name) => name.trim())
+    .filter((name) => name !== "");
   const container = document.getElementById("Rendered-name");
   container.innerHTML = "";
 
   names.forEach((name, index) => {
     const nameItem = document.createElement("div");
+
     nameItem.className = "name-item";
 
+    // TOP ROW
+    const topRow = document.createElement("div");
+
+    topRow.className = "name-top-row";
+
+    // Name
     const nameText = document.createElement("span");
+
     nameText.textContent = name;
 
-    // Preview selected name
+    // Download button
+    const downloadButton = document.createElement("button");
+
+    downloadButton.id = "download-button";
+
+    downloadButton.onclick = (e) => {
+      e.stopPropagation();
+
+      previewText.childNodes[0].nodeValue = name;
+
+      downloadAsImage(name, index);
+    };
+
+    topRow.appendChild(nameText);
+
+    topRow.appendChild(downloadButton);
+
+    // Generated Message
+    if (template.includes("{name}")) {
+      const generatedMessage = document.createElement("div");
+
+      generatedMessage.className = "generated-message";
+
+      const finalMessage = template.replaceAll("{name}", name);
+
+      generatedMessage.textContent = finalMessage;
+
+      generatedMessage.addEventListener("click", async (e) => {
+        e.stopPropagation();
+
+        await navigator.clipboard.writeText(finalMessage);
+
+        const oldText = generatedMessage.textContent;
+
+        generatedMessage.textContent = "Copied!";
+
+        generatedMessage.classList.add("copied");
+
+        setTimeout(() => {
+          generatedMessage.textContent = oldText;
+
+          generatedMessage.classList.remove("copied");
+        }, 1000);
+      });
+
+      nameItem.appendChild(topRow);
+
+      nameItem.appendChild(generatedMessage);
+    } else {
+      nameItem.appendChild(topRow);
+    }
+
+    // Preview selected
     nameItem.addEventListener("click", () => {
       previewText.childNodes[0].nodeValue = name;
 
-      // active selected ui
       document.querySelectorAll(".name-item").forEach((item) => {
         item.classList.remove("active-name-item");
       });
@@ -261,18 +324,17 @@ function renderNames() {
       nameItem.classList.add("active-name-item");
     });
 
-    nameItem.appendChild(nameText);
-
-    const downloadButton = document.createElement("button");
-    downloadButton.id = "download-button";
-    downloadButton.onclick = () => {
-      previewText.childNodes[0].nodeValue = name;
-      downloadAsImage(name, index);
-    };
-    nameItem.appendChild(downloadButton);
-
     container.appendChild(nameItem);
   });
+
+  // Auto preview first name
+  if (names.length > 0) {
+    previewText.childNodes[0].nodeValue = names[0];
+    const firstItem = container.querySelector(".name-item");
+    if (firstItem) {
+      firstItem.classList.add("active-name-item");
+    }
+  }
   toggleDownloadButton();
 }
 
@@ -339,6 +401,7 @@ function hardReload() {
   const style = document.getElementById("font-family");
   const nameColor = document.getElementById("text-color-picker");
   const lineHeight = document.getElementById("line-height");
+  const msgInput = document.getElementById("message-template");
 
   inputName.value = "";
   width.value = "";
@@ -347,6 +410,7 @@ function hardReload() {
   style.value = "";
   nameColor.value = "#ffffff";
   lineHeight.value = 67;
+  msgInput.value = "";
 }
 // Buat upload gambar undangannya
 document

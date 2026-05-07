@@ -208,15 +208,12 @@ input-editor,
 }
 
 .name-item {
-  /* width: 100%; */
   margin-top: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 10px 20px;
   background: #f4f4f4;
   border-radius: 5px;
-  align-items: center;
   color: var(--background-color);
   font-weight: 700 !important;
   cursor: pointer;
@@ -230,6 +227,12 @@ input-editor,
   background: #d9a3f8;
   transition: all;
   transition-duration: 200ms;
+}
+.name-top-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 button {
   background: var(--main-color);
@@ -279,7 +282,7 @@ button:hover {
   background: var(--download-svg);
   color: var(--frontground-color);
 }
-
+text-area,
 input {
   min-width: auto;
   padding: 10px 10px;
@@ -320,4 +323,37 @@ input {
   transition: all;
   transition-duration: 200ms;
   text-decoration: none;
+}
+
+#message-template {
+  /* min-height: 100px; */
+  border: none;
+  outline: none;
+  padding: 12px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+.generated-message {
+  min-width: 100px;
+  max-width: 100% !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 10px;
+  background: var(--sec-hover-color);
+  border-radius: 5px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.generated-message:hover {
+  background: var(--sec-color);
+  transition: all 200ms;
+  cursor: pointer;
+}
+
+.generated-message.copied {
+  background: rgb(174, 240, 157);
 }

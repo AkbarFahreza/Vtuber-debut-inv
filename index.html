@@ -21,7 +21,7 @@
   <body>
     <container>
       <div style="text-align: center">
-        <h2>Vtuber Debut Inv (v.1.3)</h2>
+        <h2>Vtuber Debut Inv (v.1.4)</h2>
         <p style="font-size: 13px">
           Render your debut invitation names with no time (by DekReza)
         </p>
@@ -35,6 +35,17 @@
                 type="text"
                 id="names-input"
                 placeholder="add comma (,) to separates names"
+              />
+            </div>
+            <div class="input-section" style="margin-top: 10px">
+              <label for="names-input" id="input-title">Message Template</label>
+              <p class="sub-title" style="font-size: 13px !important">
+                Use {name} in the message to put rendered name there
+              </p>
+              <input
+                type="text"
+                id="message-template"
+                placeholder="Hello {name}, you're invited to..."
               />
             </div>
           </input-editor>
@@ -277,13 +288,12 @@
     </container>
 
     <script src="src/script.js"></script>
-    <script src="src/jQuery.js"></script>
     <!-- Cloudflare Web Analytics -->
-    <script
+    <!-- <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon='{"token": "28f9fc5fba044c7c94150a58cedaa32c"}'
-    ></script>
+    ></script> -->
     <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
