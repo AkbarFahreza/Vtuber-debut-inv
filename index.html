@@ -80,80 +80,98 @@
               </p>
             </div>
             <div class="flex-row" style="margin-top: 10px; flex-wrap: wrap">
-              <div class="flex-col">
-                <label for="text-color-picker" class="sub-title"
-                  >Text Color</label
-                >
-                <input type="text" id="text-color-picker" data-coloris />
-              </div>
-              <div>
-                <p class="sub-title">Text Align</p>
-                <button class="align-btn" id="left-align">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-text-align-start-icon lucide-text-align-start"
+              <div
+                style="
+                  margin-top: 0px;
+                  display: flex;
+                  flex-direction: row;
+                  gap: 10px;
+                "
+              >
+                <div class="flex-col">
+                  <label for="text-color-picker" class="sub-title"
+                    >Text Color</label
                   >
-                    <path d="M21 5H3" />
-                    <path d="M15 12H3" />
-                    <path d="M17 19H3" />
-                  </svg>
-                </button>
-                <button class="align-btn" id="center-align">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-text-align-center-icon lucide-text-align-center"
-                  >
-                    <path d="M21 5H3" />
-                    <path d="M17 12H7" />
-                    <path d="M19 19H5" />
-                  </svg>
-                </button>
-                <button class="align-btn" id="right-align">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-text-align-end-icon lucide-text-align-end"
-                  >
-                    <path d="M21 5H3" />
-                    <path d="M21 12H9" />
-                    <path d="M21 19H7" />
-                  </svg>
-                </button>
+                  <input type="text" id="text-color-picker" data-coloris />
+                </div>
+                <div>
+                  <p class="sub-title">Text Align</p>
+                  <button class="align-btn" id="left-align">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-text-align-start-icon lucide-text-align-start"
+                    >
+                      <path d="M21 5H3" />
+                      <path d="M15 12H3" />
+                      <path d="M17 19H3" />
+                    </svg>
+                  </button>
+                  <button class="align-btn" id="center-align">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-text-align-center-icon lucide-text-align-center"
+                    >
+                      <path d="M21 5H3" />
+                      <path d="M17 12H7" />
+                      <path d="M19 19H5" />
+                    </svg>
+                  </button>
+                  <button class="align-btn" id="right-align">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-text-align-end-icon lucide-text-align-end"
+                    >
+                      <path d="M21 5H3" />
+                      <path d="M21 12H9" />
+                      <path d="M21 19H7" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-              <div class="flex-col">
-                <label for="line-height" class="sub-title">Line height</label>
-                <input type="number" id="line-height" />
-              </div>
-              <div class="flex-col">
-                <label for="font-family" class="sub-title">Input Font</label>
-                <input
-                  type="file"
-                  id="font-family"
-                  accept=".ttf,  .otf,  .woff, .woff2 "
-                />
+              <div
+                style="
+                  margin-top: 10px;
+                  display: flex;
+                  flex-direction: row;
+                  gap: 10px;
+                "
+              >
+                <div class="flex-col">
+                  <label for="line-height" class="sub-title">Line height</label>
+                  <input type="number" id="line-height" />
+                </div>
+                <div class="flex-col">
+                  <label for="font-family" class="sub-title">Input Font</label>
+                  <input
+                    type="file"
+                    id="font-family"
+                    accept=".ttf,  .otf,  .woff, .woff2 "
+                  />
+                </div>
               </div>
             </div>
           </div>
