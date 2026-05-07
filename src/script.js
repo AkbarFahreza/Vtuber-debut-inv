@@ -1,10 +1,16 @@
+const previewText = document.getElementById("name");
+const handle = previewText.querySelector(".handle");
+const rotateHandle = previewText.querySelector(".rotate");
+const leftAlignBtn = document.getElementById("left-align");
+const centerAlignBtn = document.getElementById("center-align");
+const rightAlignBtn = document.getElementById("right-align");
+
+const alignButtons = document.querySelectorAll(".align-btn");
+
 const MOVE_STEP = 5;
 const FAST_STEP = 20;
 const FINE_STEP = 1;
 let rotation = 0;
-const previewText = document.getElementById("name");
-const handle = previewText.querySelector(".handle");
-const rotateHandle = previewText.querySelector(".rotate");
 
 // Handle text control
 
@@ -140,6 +146,36 @@ document.addEventListener("mouseup", () => {
 
 update();
 
+// algin text control
+function setActiveAlign(button) {
+  alignButtons.forEach((btn) => {
+    btn.classList.remove("active-align");
+  });
+
+  button.classList.add("active-align");
+}
+
+// Left
+leftAlignBtn.addEventListener("click", () => {
+  previewText.style.textAlign = "left";
+  setActiveAlign(leftAlignBtn);
+});
+
+// Center
+centerAlignBtn.addEventListener("click", () => {
+  previewText.style.textAlign = "center";
+  setActiveAlign(centerAlignBtn);
+});
+
+// Right
+rightAlignBtn.addEventListener("click", () => {
+  previewText.style.textAlign = "right";
+  setActiveAlign(rightAlignBtn);
+});
+
+// Default align active
+setActiveAlign(leftAlignBtn);
+
 // set max width
 const leftHandle = previewText.querySelector(".left");
 
@@ -212,11 +248,23 @@ function renderNames() {
 
     const nameText = document.createElement("span");
     nameText.textContent = name;
+
+    // Preview selected name
+    nameItem.addEventListener("click", () => {
+      previewText.childNodes[0].nodeValue = name;
+
+      // active selected ui
+      document.querySelectorAll(".name-item").forEach((item) => {
+        item.classList.remove("active-name-item");
+      });
+
+      nameItem.classList.add("active-name-item");
+    });
+
     nameItem.appendChild(nameText);
 
     const downloadButton = document.createElement("button");
     downloadButton.id = "download-button";
-    downloadButton.textContent = `Download`;
     downloadButton.onclick = () => {
       previewText.childNodes[0].nodeValue = name;
       downloadAsImage(name, index);
@@ -225,7 +273,6 @@ function renderNames() {
 
     container.appendChild(nameItem);
   });
-
   toggleDownloadButton();
 }
 
@@ -270,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
 window.addEventListener("DOMContentLoaded", function () {
   hardReload();
 });
+
 // Buat validasi kalo misal input name kosong, tombol render result akan disable
 const input = document.getElementById("names-input");
 const renderBtn = document.getElementById("render-button");
