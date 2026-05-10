@@ -256,7 +256,7 @@ function renderNames() {
 
     // Name
     const nameText = document.createElement("span");
-    nameText.textContent = name;
+    nameText.textContent = `${index + 1}. ${name}`;
     // Download button
     const downloadButton = document.createElement("button");
     downloadButton.id = "download-button";
