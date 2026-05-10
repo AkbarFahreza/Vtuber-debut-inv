@@ -19,28 +19,31 @@
     ></script>
   </head>
   <body>
+    <div id="title-container">
+      <h2 id="title">Vtuber Debut Inv <span id="version">(v1.6)</span></h2>
+      <p style="font-size: 14px; margin-top: 10px">
+        Render your debut invitation names with no time (by DekReza)
+      </p>
+    </div>
     <container>
-      <div style="text-align: center">
-        <h2>Vtuber Debut Inv (v.1.5)</h2>
-        <p style="font-size: 13px">
-          Render your debut invitation names with no time (by DekReza)
-        </p>
-      </div>
       <options-panel>
         <div id="options">
           <input-editor>
             <div class="input-section">
               <label for="names-input" id="input-title">Input Names</label>
+              <p class="sub-title" style="font-size: 13px !important">
+                add comma (,) to separates names
+              </p>
               <input
                 type="text"
                 id="names-input"
-                placeholder="add comma (,) to separates names"
+                placeholder="Vtuber Name1, Vtuber Name2, Dekreza"
               />
             </div>
             <div class="input-section" style="margin-top: 16px">
               <label for="names-input" id="input-title">Message Template</label>
               <p class="sub-title" style="font-size: 13px !important">
-                Use {name} in the message to put rendered name there
+                add {name} to replace names
               </p>
               <textarea
                 id="message-template"
@@ -218,7 +221,7 @@
             class="flex-row"
             style="justify-content: space-between; align-items: center"
           >
-            <p class="title" style="margin: 20px 0px">Result</p>
+            <p class="title">Result</p>
             <button
               onclick="downloadAllImages()"
               id="download-all-button"
@@ -256,35 +259,42 @@
         </div>
       </preview-panel>
       <div
-        class="flex-col"
+        class="flex-row"
         style="position: fixed; bottom: 20px; right: 20px; gap: 5px"
         id="socmed"
       >
         <a
           class="flex-row"
-          style="align-items: center !important"
+          style="
+            align-items: center !important;
+            border: 2px solid #b53df9;
+            background: #b53df9;
+          "
           href="https://ko-fi.com/arzee"
         >
-          <img src="src/img/ko-fi.svg" />
           <p class="title">Ko-fi</p>
         </a>
         <a
           class="flex-row"
-          style="align-items: center !important"
+          style="
+            align-items: center !important;
+            border: 2px solid #b53df9;
+            background: #b53df9;
+          "
           href="https://trakteer.id/DekReza/"
           s
         >
-          <img
-            src="src/img/trakteer.svg"
-            style="align-items: center !important"
-          />
           <p class="title">Trakteer</p>
         </a>
-        <a class="flex-row" href="https://x.com/Revernry">
-          <img
-            src="src/img/twitter.svg"
-            style="align-items: center !important"
-          />
+        <a
+          class="flex-row"
+          style="
+            align-items: center !important;
+            border: 2px solid #b53df9;
+            background: #b53df9;
+          "
+          href="https://x.com/Revernry"
+        >
           <p class="title">Twitter</p>
         </a>
       </div>
